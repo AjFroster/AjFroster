@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "profile-3d-contrib/**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Lint workflows
+        uses: raven-actions/actionlint@v2
+      - name: Check README image paths
+        run: |
+          grep -q 'profile-3d-contrib/profile-night-rainbow.svg' README.md
+          grep -q 'profile-3d-contrib/profile-green-animate.svg' README.md
